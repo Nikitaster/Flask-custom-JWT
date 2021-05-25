@@ -1,8 +1,7 @@
 ## Flask custom JSON WEb Token (JWT)
 
 ### Installation
-    clone this project
-
+    git clone https://gitlab.com/nikitaster/flask-custom-jwt.git
     cd flask-custom-jwt
     python3 -v venv venv
     source venv/bin/activate
@@ -17,11 +16,11 @@ openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 36
 
 ### Run 
 (on port 8001)
+    
     ./gunicorn-run.sh
 
 ### Nginx Configuration for proxy to gunicorn
 ```Nginx
-
 server {
     listen 443 ssl;
 
@@ -44,8 +43,5 @@ server {
         include proxy_params;
         proxy_pass https://0.0.0.0:8001/unprotected;
     }
-```
-
-
-
 }
+```
