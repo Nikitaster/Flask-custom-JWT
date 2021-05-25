@@ -19,6 +19,10 @@ openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 36
     
     ./gunicorn-run.sh
 
+or manually
+
+    gunicorn --certfile cert.pem --keyfile key.pem -b 0.0.0.0:8001 app:app
+
 ### Nginx Configuration for proxy to gunicorn
 ```Nginx
 server {
