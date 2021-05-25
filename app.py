@@ -18,10 +18,14 @@ def token_required(func):
             return jsonify({'message': 'Token is missing!'}), 403
 
         try:
-            jwt.decode(
+            data = jwt.decode(
                 jwt=token, key=app.config['SECRET_KEY'], algorithms=['HS256'])
+            if data['expires'] < datetime.datetime.utcnow().timestamp():
+                raise jwt.ExpiredSignatureError
         except (jwt.InvalidSignatureError, jwt.DecodeError, jwt.InvalidAlgorithmError):
             return jsonify({'message': 'Token is invalid!'}), 403
+        except jwt.ExpiredSignatureError:
+            return jsonify({'message': 'Token is expired!'}), 403
 
         return func()
     return wrapper
