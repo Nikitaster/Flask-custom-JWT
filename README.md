@@ -52,3 +52,27 @@ server {
     }
 }
 ```
+
+### Systemd UNIT
+##### Create unit file
+/etc/systemd/system/flask-custom-jwt.service  
+```bash
+[Unit]
+Description=gunicorn flask-custom-jwt daemon
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/ubuntu/flask-custom-jwt
+Restart=always
+ExecStart=/bin/bash gunicorn-run.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+##### Run and enable
+```bash
+systemctl start flask-custom-jwt.service  
+systemctl enable flask-custom-jwt.service 
+```
